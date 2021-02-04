@@ -18,6 +18,9 @@ class Order(models.Model):
         verbose_name_plural = "Orders"
         db_table = "itw_order"
 
+    def __str__(self):
+        return '{} '.format(self.customer_id)
+
 
 class OrderUnit(models.Model):
     order_id = models.ForeignKey(to=Order, on_delete=models.CASCADE)
@@ -29,6 +32,9 @@ class OrderUnit(models.Model):
         verbose_name = "OrderUnit"
         verbose_name_plural = "OrderUnites"
         db_table = "itw_order_units"
+
+    def __str__(self):
+        return '{} {} {} {}'.format(self.order_id, self.product_id, self.amount, self.price)
 
 
 class Counter(models.Model):

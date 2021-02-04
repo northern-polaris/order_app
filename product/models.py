@@ -1,3 +1,4 @@
+
 from django.db import models
 
 
@@ -8,6 +9,9 @@ class ProductCategory(models.Model):
         verbose_name = "Product Category"
         verbose_name_plural = "Product Categories"
         db_table = "itw_product_category"
+
+    def __str__(self):
+        return '{} '.format(self.name)
 
 
 class Product(models.Model):
@@ -21,3 +25,6 @@ class Product(models.Model):
         verbose_name = "Product"
         verbose_name_plural = "Products"
         db_table = "itw_product"
+
+    def __str__(self):
+        return '{} '.format(self.id)
