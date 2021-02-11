@@ -14,3 +14,6 @@ class ProductRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+    def perform_destroy(self, instance):
+        instance.deleted = True
+        instance.save()
