@@ -19,3 +19,8 @@ class CustomerRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 class SellerListCreate(generics.ListCreateAPIView):
     queryset = User.objects.filter(groups__name='Shites')
     serializer_class = SellerSerializer
+
+
+class SellerRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.filter(groups__name='Shites')
+    serializer_class = SellerSerializer

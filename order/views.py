@@ -32,15 +32,6 @@ class OrderRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
 
 
-class OrderUnitListCreate(generics.ListCreateAPIView):
-    queryset = OrderUnit.objects.all()
-    serializer_class = OrderUnitSerializer
-
-
-class OrderUnitRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = OrderUnit.objects.all()
-    serializer_class = OrderUnitSerializer
-
 # class my(PageNumberPagination):
 #
 #     def get_paginated_response(self, data):

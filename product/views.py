@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics
 
-from product.models import Product
-from product.serializers import ProductSerializer
+from product.models import Product, ProductCategory
+from product.serializers import ProductSerializer, ProductCategorySerializer
 
 
 class ProductListCreate(generics.ListCreateAPIView):
@@ -17,3 +17,8 @@ class ProductRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     def perform_destroy(self, instance):
         instance.deleted = True
         instance.save()
+
+
+class CategoryList(generics.ListAPIView):
+    queryset = ProductCategory.objects.all()
+    serializer_class = ProductCategorySerializer

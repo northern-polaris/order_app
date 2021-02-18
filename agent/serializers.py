@@ -7,7 +7,7 @@ from agent.models import Customer
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ['first_name', 'last_name', 'company_name']
+        fields = ['id','first_name', 'last_name', 'company_name']
 
 
 class SellerSerializer(serializers.ModelSerializer):
