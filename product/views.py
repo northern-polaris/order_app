@@ -6,7 +6,7 @@ from product.serializers import ProductSerializer, ProductCategorySerializer
 
 
 class ProductListCreate(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(deleted=False)
     serializer_class = ProductSerializer
 
 
