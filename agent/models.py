@@ -14,4 +14,4 @@ class Customer(models.Model):
         db_table = "itw_customer"
 
     def __str__(self):
-        return '{} '.format(self.id)
+        return 'Klient {} '.format(self.id)

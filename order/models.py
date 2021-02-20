@@ -23,7 +23,7 @@ class Order(models.Model):
 
 
 class OrderUnit(models.Model):
-    order_id = models.ForeignKey(to=Order, on_delete=models.CASCADE)
+    order_id = models.ForeignKey(to=Order, on_delete=models.CASCADE, related_name="oder_units")
     product_id = models.ForeignKey(to=Product, on_delete=models.CASCADE)
     amount = models.IntegerField()
     price = models.IntegerField()
