@@ -2,13 +2,14 @@ from collections import OrderedDict
 
 from django.shortcuts import render
 from rest_framework import generics, permissions
+from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination, BasePagination
 from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 
+from agent.models import Customer
 from order.models import Order, OrderUnit
 from order.serializers import OrderSerializer, OrderUnitSerializer
-
 
 # class IsShites(BasePermission):
 #     """
@@ -20,6 +21,8 @@ from order.serializers import OrderSerializer, OrderUnitSerializer
 #         if "SHites" in groups:
 #             return True
 #         return False
+from product.models import Product
+
 
 class OrderListCreate(generics.ListCreateAPIView):
     queryset = Order.objects.all()
@@ -43,3 +46,12 @@ class OrderRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 #             ('data', data)
 #         ]))
 #
+@api_view(['GET'])
+def order_form_dependencies(request):
+    data = {
+        'customers': [{'id': customer.id, 'name': customer.full_name()} for customer in
+                      Customer.objects.filter(deleted=False)],
+
+        'products': [{'id': product.id, 'name': product.name} for product in Product.objects.filter(deleted=False)],
+    }
+    return Response(data)
