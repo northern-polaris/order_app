@@ -7,13 +7,13 @@ from agent.models import Customer
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ['id','first_name', 'last_name', 'company_name']
+        fields = ['id', 'first_name', 'last_name', 'company_name']
 
 
 class SellerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name', 'last_name', 'email']
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'is_active']
 
     def create(self, validated_data):
         seller = super().create(validated_data)
