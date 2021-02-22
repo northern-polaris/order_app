@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from datetime import datetime
 # Create your models here.
 from agent.models import Customer
 from product.models import Product
@@ -20,6 +20,23 @@ class Order(models.Model):
 
     def __str__(self):
         return '{} '.format(self.customer_id)
+
+    def save(self, **kwargs):
+        # we take actual date/year and save it to code_year
+        date_now = datetime.now()
+        self.code_year = date_now.year
+
+        counters = Counter.objects.filter(name='P')
+
+        if counters:
+            last_counter = counters.last()
+            new_counter = Counter.objects.create(name='P', value=last_counter.value + 1)
+            self.code = new_counter.value
+
+        else:
+            new_counter = Counter.objects.create(name='P', value=1)
+
+        super().save()
 
 
 class OrderUnit(models.Model):

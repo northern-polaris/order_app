@@ -34,10 +34,6 @@ class OrderSerializer(serializers.ModelSerializer):
         order_units = validated_data.pop('order_units')
 
         logged_user = User.objects.first()
-        code = 1
-        code_year = 2021
-        validated_data['code'] = code
-        validated_data['code_year'] = code_year
         validated_data['creator_id'] = logged_user
         order = super().create(validated_data)
 
