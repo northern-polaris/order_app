@@ -52,6 +52,7 @@ def order_form_dependencies(request):
         'customers': [{'id': customer.id, 'name': customer.full_name()} for customer in
                       Customer.objects.filter(deleted=False)],
 
-        'products': [{'id': product.id, 'name': product.name} for product in Product.objects.filter(deleted=False)],
+        'products': [{'id': product.id, 'name': product.name, 'price': product.default_price} for product in
+                     Product.objects.filter(deleted=False)],
     }
     return Response(data)
