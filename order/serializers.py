@@ -8,7 +8,7 @@ from order.models import Order, OrderUnit, Counter
 class OrderUnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderUnit
-        fields = ["product_id", "amount"]
+        fields = ["product_id", "amount", "price"]
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -30,18 +30,28 @@ class OrderSerializer(serializers.ModelSerializer):
         return obj.date_registered.strftime('%m/%d/%Y')
 
     def create(self, validated_data):
-        # logged_user = self._kwargs['context']['request'].user
+        logged_user = self._kwargs['context']['request'].user
         order_units = validated_data.pop('order_units')
-
-        logged_user = User.objects.first()
         validated_data['creator_id'] = logged_user
         order = super().create(validated_data)
 
         for order_unit in order_units:
             order_unit['order_id'] = order
-            product_price = order_unit['product_id'].default_price
-            total_price = product_price * order_unit['amount']
-            order_unit['price'] = total_price
+            OrderUnit.objects.create(**order_unit)
+
+        return order
+
+    def update(self, instance, validated_data):
+
+        logged_user = self._kwargs['context']['request'].user
+        order_units = validated_data.pop('order_units')
+        validated_data['creator_id'] = logged_user
+        order = super().update(instance, validated_data)
+
+        instance.order_units.all().delete()
+
+        for order_unit in order_units:
+            order_unit['order_id'] = order
             OrderUnit.objects.create(**order_unit)
 
         return order
