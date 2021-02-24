@@ -27,6 +27,3 @@ urlpatterns = [
     path('login/', ObtainAuthTokenCustomView.as_view(), name='login'),
 
 ]
-# urlpatterns += order_urls.urlpatterns
-# urlpatterns += product.urls.urlpatterns
-# urlpatterns += agent.urls.urlpatterns
