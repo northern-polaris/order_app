@@ -24,6 +24,7 @@ urlpatterns = [
     path('order/', include('order.urls')),
     path('product/', include('product.urls')),
     path('agent/', include('agent.urls')),
+    path('movie/', include('movie.urls')),
     path('login/', ObtainAuthTokenCustomView.as_view(), name='login'),
 
 ]
