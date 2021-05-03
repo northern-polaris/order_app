@@ -16,7 +16,7 @@ from order_app.exceptions import APIException202, InvalidData
 logger = logging.getLogger(__name__)
 
 
-class MovieListAPIView(ListAPIView):
+class ParentListAPIView(ListAPIView):
     queryset = None
     serializer_class = None
     filter_serializer_class = None
@@ -25,7 +25,7 @@ class MovieListAPIView(ListAPIView):
     # permission_classes = [CanView]
 
 
-class MovieCreateAPIView(CreateAPIView):
+class ParentCreateAPIView(CreateAPIView):
 
     @atomic
     # @permission_classes([CanAdd])
@@ -57,7 +57,7 @@ class MovieCreateAPIView(CreateAPIView):
             response_data = {
                 ERROR_TYPE: VALIDATION_ERROR,
                 ERRORS: error_dict,
-                MESSAGE: get_validation_error_message(error_dict)
+                # MESSAGE: get_validation_error_message(error_dict)
             }
             response_status = status.HTTP_400_BAD_REQUEST
         except ObjectDoesNotExist as dne:
@@ -98,7 +98,7 @@ class MovieCreateAPIView(CreateAPIView):
             return Response(response_data, status=response_status, headers=response_headers)
 
 
-class MovieListCreateAPIView(MovieCreateAPIView, MovieListAPIView):
+class ParentListCreateAPIView(ParentCreateAPIView, ParentListAPIView):
     list_read_serializer_class = None
     read_serializer_class = None
     write_serializer_class = None
@@ -134,7 +134,7 @@ class MovieListCreateAPIView(MovieCreateAPIView, MovieListAPIView):
         return self.read_serializer_class
 
 
-class MovieRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+class ParentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     """
     Retrieve, update or delete an object instance.
     """

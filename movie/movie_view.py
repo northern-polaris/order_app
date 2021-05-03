@@ -1,9 +1,16 @@
 from movie.models import Movie
-from order_app.common.api_views import MovieCreateAPIView
+from movie.movie_serializer import MovieListSerializer, MovieWriteSerializer
+from order_app.common.api_views import ParentRetrieveUpdateDestroyAPIView, ParentListCreateAPIView
 
 
-class MovieListCreateAPIView (MovieCreateAPIView):
+class MovieListCreateAPIView(ParentListCreateAPIView):
     queryset = Movie.objects.filter(deleted=False)
-    list_serilizer = MovieListSerializer
-    write_serilizer = MovieWriteSerializer
+    list_serializer_class = MovieListSerializer
+    write_serializer_class = MovieWriteSerializer
+
+
+class MovieUpdateRetrieveDestroyAPIView(ParentRetrieveUpdateDestroyAPIView):
+    queryset = Movie.objects.filter(deleted=False)
+    write_serializer_class = MovieWriteSerializer
+
 
