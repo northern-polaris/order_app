@@ -34,7 +34,7 @@ class Movie(models.Model):
 class Serial(models.Model):
     title = models.CharField("Title", max_length=50)
     description = models.CharField("Descirption", max_length=150, blank=True)
-    categories = models.ManyToManyField(Category, related_name="movies")
+    categories = models.ManyToManyField(Category, related_name="categories")
     year = models.IntegerField("Year", null=True, blank=True)
     season_no = models.IntegerField("Number of seasons")
     deleted = models.BooleanField(default=False)
@@ -45,4 +45,11 @@ class Season(models.Model):
     description = models.CharField("Descirption", max_length=150, blank=True)
     episode_no = models.IntegerField("Number of epiosdes")
     serial = models.ForeignKey(Serial, on_delete=models.CASCADE, related_name="seasons")
+    deleted = models.BooleanField(default=False)
+
+
+class Episode(models.Model):
+    title = models.CharField("Title", max_length=50)
+    description = models.CharField("Descirption", max_length=150, blank=True)
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, related_name="episodes")
     deleted = models.BooleanField(default=False)
