@@ -68,11 +68,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
-
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:4200',
-)
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'order_app.urls'
 
